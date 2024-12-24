@@ -18,7 +18,6 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .row {
     display: flex;
     width: 100%;
@@ -40,11 +39,6 @@ body {
     border-right: none;
 }
 
-.header {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-}
 
 input[type="number"], input[type="text"] {
     width: 100%;
@@ -74,8 +68,46 @@ input[type="number"], input[type="text"] {
 #reset-button:hover {
     background-color: #0056b3;
 }
+.minus-button, .plus-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.minus-button:hover, .plus-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.minus-button {
+    background-color: #dc3545;
+}
+
+.minus-button:hover {
+    background-color: #c82333;
+}
 
 @media (max-width: 600px) {
+    .minus-button, .plus-button {
+        min-width: 44px; /* Ensures buttons are large enough for touch */
+        min-height: 44px; /* Ensures buttons are large enough for touch */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .percent-cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .minus-button, .plus-button {
+        margin: 0 10px; /* Adds more space between buttons and text */
+    }
     .row {
         flex-direction: column;
         border: 1px solid #ccc;

@@ -1,111 +1,143 @@
-let products_o = [
-    { name: 'Porumb', quantity: 0, protein: 10, price: 1 },
-    { name: 'Grau', quantity: 0, protein: 10, price: 1 },
-    { name: 'Orz', quantity: 0, protein: 11, price: 1 },
-    { name: 'Tarate', quantity: 0, protein: 11, price: 1.2 },
-    { name: 'Floare', quantity: 0, protein: 28, price: 2 },
-    { name: 'Soia', quantity: 0, protein: 46, price: 4 },
-    { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
-];
+document.addEventListener('DOMContentLoaded', () => {
+    const products_o = [
+        { name: 'Porumb', quantity: 0, protein: 10, price: 1 },
+        { name: 'Grau', quantity: 0, protein: 10, price: 1 },
+        { name: 'Orz', quantity: 0, protein: 11, price: 1 },
+        { name: 'Tarate', quantity: 0, protein: 11, price: 1.2 },
+        { name: 'Floare', quantity: 0, protein: 28, price: 2 },
+        { name: 'Soia', quantity: 0, protein: 46, price: 4 },
+        { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
+    ];
 
+    let products = JSON.parse(JSON.stringify(products_o));
 
-let products = [
-];
+    const productsContainer = document.getElementById('products-container');
+    const proteinPercentElem = document.getElementById('protein-percent');
+    const pricePerKgElem = document.getElementById('price-per-kg');
 
+    // Utility: Cookie management
+    const setCookie = (name, value, days) => {
+        const expires = days ? `; expires=${new Date(Date.now() + days * 864e5).toUTCString()}` : '';
+        document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/; SameSite=Lax`;
+    };
 
-function setCookie(name, value, days) {
-    let expires = "";
-    if (days) {
-        let date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
-    console.log(`Cookie set: ${name}=${value}`);
-}
+    const getCookie = (name) => {
+        const matches = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+        return matches ? decodeURIComponent(matches[1]) : null;
+    };
 
-function getCookie(name) {
-    let nameEQ = name + "=";
-    let ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
+    const saveProductsToCookies = () => {
+        setCookie('products', JSON.stringify(products), 7);
+    };
 
-function saveProductsToCookies() {
-    setCookie('products', JSON.stringify(products), 7);
-}
+    const loadProductsFromCookies = () => {
+        const cookieData = getCookie('products');
+        if (cookieData) products = JSON.parse(cookieData);
+    };
 
-function loadProductsFromCookies() {
-    let cookieData = getCookie('products');
-    if (cookieData) {
-        products = JSON.parse(cookieData);
-        console.log('Products loaded from cookies:', products);
-    }
-}
-
-function loadProducts() {
-    loadProductsFromCookies();
-    let productsContainerHtml = [];
-    products.forEach((product, index) => {
-        let productHtml = `
+    // DOM Update: Load products
+    const renderProducts = () => {
+        productsContainer.innerHTML = products.map((product, index) => `
             <div class="row" id="${product.name}">
                 <div class="cell namecell">${product.name}</div>
-                <div class="cell"><input type="number" name="quantity" value="${product.quantity}" min="0" class="quantity-input" data-index="${index}"></div>
-                <div class="cell percent-cell" name="percent">${product.protein}</div>
-                <div class="cell"><input type="number" name="price" value="${product.price}" min="0" class="price-input" data-index="${index}"></div>
+                <div class="cell">
+                    <input type="number" 
+                           name="quantity" 
+                           placeholder="${product.quantity}" 
+                           min="0" 
+                           class="quantity-input" 
+                           data-index="${index}">
+                </div>
+                <div class="cell percent-cell" name="percent">
+                    <button class="minus-button" data-index="${index}">-</button>
+                    ${product.protein}
+                    <button class="plus-button" data-index="${index}">+</button>
+                </div>
+                <div class="cell">
+                    <input type="number" 
+                           name="price" 
+                           value="${product.price}" 
+                           min="0" 
+                           class="price-input" 
+                           data-index="${index}">
+                </div>
             </div>
-        `;
-        productsContainerHtml.push(productHtml);
-    });
-    document.getElementById('products-container').innerHTML = productsContainerHtml.join('');
+        `).join('');
 
-    document.querySelectorAll('.quantity-input, .price-input').forEach(input => {
-        input.addEventListener('input', handleInputChange);
-    });
+        attachEventListeners();
+    };
+
+    // Event Listeners
+    const attachEventListeners = () => {
+        productsContainer.querySelectorAll('.quantity-input').forEach(input => 
+            input.addEventListener('input', handleInputChange)
+        );
+        productsContainer.querySelectorAll('.price-input').forEach(input => 
+            input.addEventListener('input', handleInputChange)
+        );
+        productsContainer.querySelectorAll('.minus-button').forEach(button => 
+            button.addEventListener('click', handleMinusButtonClick)
+        );
+        productsContainer.querySelectorAll('.plus-button').forEach(button => 
+            button.addEventListener('click', handlePlusButtonClick)
+        );
+    };
+
+    const handleMinusButtonClick = (event) => {
+        const index = event.target.dataset.index;
+        products[index].protein = Math.max(0, products[index].protein - 1);
+        updateProducts();
+    };
+
+    const handlePlusButtonClick = (event) => {
+        const index = event.target.dataset.index;
+        products[index].protein = Math.min(100, products[index].protein + 1);
+        updateProducts();
+    };
+
+    const handleInputChange = (event) => {
+        const index = event.target.dataset.index;
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+    
+        products[index][name] = value;
+    
+        // Update calculations and percentages directly without full re-render
+        computeAndShowPercent();
+        saveProductsToCookies();
+    };
+    
+
+    // Logic: Compute percentages and update UI
+    const computeAndShowPercent = () => {
+        const totalProtein = products.reduce((sum, product) => sum + (product.quantity * product.protein / 100), 0);
+        const totalPrice = products.reduce((sum, product) => sum + (product.quantity * product.price), 0);
+        const totalQuantity = products.reduce((sum, product) => sum + product.quantity, 0);
+
+        const proteinPercent = totalQuantity ? (totalProtein / totalQuantity * 100).toFixed(2) : 0;
+        const pricePerKg = totalQuantity ? (totalPrice / totalQuantity).toFixed(2) : 0;
+
+        proteinPercentElem.textContent = `Proteina: ${proteinPercent}%`;
+        pricePerKgElem.textContent = `Pret: ${pricePerKg} ron/kg`;
+    };
+
+    // Reset products to initial state
+    const resetProducts = () => {
+        products = JSON.parse(JSON.stringify(products_o));
+        updateProducts();
+    };
+
+    const updateProducts = () => {
+        saveProductsToCookies();
+        renderProducts();
+        computeAndShowPercent();
+    };
+
+    // Initialize
+    loadProductsFromCookies();
+    renderProducts();
     computeAndShowPercent();
 
-}
-
-function resetProducts() {
-    products = JSON.parse(JSON.stringify(products_o));
-    saveProductsToCookies();
-    loadProducts();
-}
-
-function handleInputChange(event) {
-    const index = event.target.getAttribute('data-index');
-    const value = parseFloat(event.target.value);
-    const name = event.target.getAttribute('name');
-
-    switch (name) {
-        case 'quantity':
-            products[index].quantity = value;
-            break;
-        case 'price':
-            products[index].price = value;
-            break;
-        default:
-    }
-    saveProductsToCookies();
-    computeAndShowPercent();
-}
-
-function computeAndShowPercent() {
-    let totalProtein = products.reduce((sum, product) => sum + (product.quantity * product.protein / 100), 0);
-    let totalPrice = products.reduce((sum, product) => sum + (product.quantity * product.price), 0);
-    let totalQuantity = products.reduce((sum, product) => sum + product.quantity, 0);
-
-    let proteinPercent = totalQuantity ? (totalProtein / totalQuantity * 100).toFixed(2) : 0;
-    let pricePerKg = totalQuantity ? (totalPrice / totalQuantity).toFixed(2) : 0;
-
-    console.log(proteinPercent, pricePerKg);
-    document.getElementById('protein-percent').textContent = "Proteina: " + proteinPercent + "%";
-    document.getElementById('price-per-kg').textContent = "Pret: " + pricePerKg + " ron/kg";
-}
-
-
-loadProducts();
+    // Attach reset button event
+    document.getElementById('reset-button').addEventListener('click', resetProducts);
+});
