@@ -49,7 +49,7 @@ function loadProductsFromCookies() {
 
 function loadProducts(Products_i, reset = false) {
     loadProductsFromCookies();
-    if (products.length === 0 || reset) {
+    if (reset) {
         products = Products_i;
         saveProductsToCookies();
     }
@@ -112,4 +112,4 @@ function computeAndShowPercent() {
 }
 
 
-loadProducts(products_o);
+loadProducts(products_o, false);
