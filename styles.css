@@ -6,27 +6,43 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f9f9f9;
+    color: #333;
 }
+
 .table {
     display: inline-block;
     width: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .row {
     display: flex;
     width: 100%;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
+
+.row:last-child {
+    border-bottom: none;
+}
+
 .cell {
     flex: 1;
     padding: 8px;
     border-right: 1px solid #ddd;
-    
+    background-color: #fafafa;
 }
+
 .cell:last-child {
     border-right: none;
 }
+
 .header {
-    background-color: #f2f2f2;
+    background-color: #007bff;
+    color: #fff;
     font-weight: bold;
 }
 
@@ -35,51 +51,58 @@ input[type="number"], input[type="text"] {
     box-sizing: border-box;
     font-size: 25px;
     text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
 }
 
 .button-container {
     padding: 20px;
-
 }
 
 @media (max-width: 600px) {
-    
     .row {
-    flex-direction: column;
-    border: 1px solid #ccc;
-    margin-bottom: 5px;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
     }
+
     .header {
-    display: none;
+        display: none;
     }
+
     .cell {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-    text-align: center;
-    font-size: 25px; /* Increased font size for better readability */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: center;
+        font-size: 25px; /* Increased font size for better readability */
+        background-color: #fafafa;
     }
-    
+
     .cell:before {
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
-    font-size: 20px; /* Increased font size for better readability */
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        font-size: 20px; /* Increased font size for better readability */
+        color: #007bff;
     }
+
     .cell:nth-of-type(2):before { content: "Cantitate"; }
     .cell:nth-of-type(3):before { content: "Protein (%)"; }
     .cell:nth-of-type(4):before { content: "Pret"; }
 
     .namecell {
-    text-align: left;
-    font-weight: bold;
-    transform: translateX(-10%);
-    font-size: 25px; /* Increased font size for better readability */
+        text-align: left;
+        font-weight: bold;
+        transform: translateX(-10%);
+        font-size: 25px; /* Increased font size for better readability */
+        color: #ff4500; /* Changed to a more vibrant title color */
     }
 }
