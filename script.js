@@ -79,9 +79,9 @@ function loadProducts(Products_i) {
 }
 
 function resetProducts() {
-    products = products_o;
+    loadProducts(products_o);
     saveProductsToCookies();
-    loadProducts(products);
+    window.scrollTo(0, 0);
 }
 
 function handleInputChange(event) {
