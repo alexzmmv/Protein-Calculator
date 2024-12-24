@@ -47,12 +47,8 @@ function loadProductsFromCookies() {
     }
 }
 
-function loadProducts(Products_i, reset = false) {
+function loadProducts() {
     loadProductsFromCookies();
-    if (reset) {
-        products = Products_i;
-        saveProductsToCookies();
-    }
     let productsContainerHtml = [];
     products.forEach((product, index) => {
         let productHtml = `
@@ -75,9 +71,6 @@ function loadProducts(Products_i, reset = false) {
 }
 
 function resetProducts() {
-    loadProducts(products_o, true);
-    saveProductsToCookies();
-    window.scrollTo(0, 0);
 }
 
 function handleInputChange(event) {
@@ -112,4 +105,4 @@ function computeAndShowPercent() {
 }
 
 
-loadProducts(products_o, false);
+loadProducts();
