@@ -61,6 +61,7 @@ function loadProducts() {
     document.querySelectorAll('.quantity-input, .price-input').forEach(input => {
         input.addEventListener('input', handleInputChange);
     });
+    computeAndShowPercent();
 }
 
 function handleInputChange(event) {
