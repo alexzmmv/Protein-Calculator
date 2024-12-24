@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+
+    <title>Protein Calculator</title>
+    
+</head>
+<body>
+    <h1>Protein Calculator</h1>
+    <div class="table">
+        <div class="row header">
+            <div class="cell">Nume</div>
+            <div class="cell">Cantitate</div>
+            <div class="cell">Protein (%)</div>
+            <div class="cell">Pret</div>
+        </div>
+        <div class="row" id="Faina">
+            <div class="cell namecell">Faina</div>
+            <div class="cell"><input type="number" name="quantity" value="0" min="0" class="quantity-input"></div>
+            <div class="cell percent-cell" name="percent">10</div>
+            <div class="cell"><input type="number" name="price" value="5" min="0" class="price-input"></div>
+        </div> 
+        <div class="row" id="Oua">
+            <div class="cell namecell">Oua</div>
+            <div class="cell"><input type="number" name="quantity" value="0" min="0" class="quantity-input"></div>
+            <div class="cell percent-cell" name="percent">5</div>
+            <div class="cell"><input type="number" name="price" value="2" min="0" class="price-input"></div>
+        </div>
+    </div>
+    <div id="percents-container">
+        <h1 id="protein-percent">Proteina: 0%</h1>
+        <h1 id="price-per-kg">Pret: 0 ron/kg</h1>
+    </div>
+</body>
+</html>
