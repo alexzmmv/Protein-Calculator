@@ -1,3 +1,14 @@
+let products_o = [
+    { name: 'Porumb', quantity: 0, protein: 10, price: 1 },
+    { name: 'Grau', quantity: 0, protein: 10, price: 1 },
+    { name: 'Orz', quantity: 0, protein: 11, price: 1 },
+    { name: 'Tarate', quantity: 0, protein: 11, price: 1.2 },
+    { name: 'Floare', quantity: 0, protein: 28, price: 2 },
+    { name: 'Soia', quantity: 0, protein: 46, price: 4 },
+    { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
+];
+
+
 let products = [
     { name: 'Porumb', quantity: 0, protein: 10, price: 1 },
     { name: 'Grau', quantity: 0, protein: 10, price: 1 },
@@ -7,6 +18,7 @@ let products = [
     { name: 'Soia', quantity: 0, protein: 46, price: 4 },
     { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
 ];
+
 
 function setCookie(name, value, days) {
     let expires = "";
@@ -42,8 +54,9 @@ function loadProductsFromCookies() {
     }
 }
 
-function loadProducts() {
+function loadProducts(Products_i) {
     loadProductsFromCookies();
+    products=Products_i;
     let productsContainerHtml = [];
     products.forEach((product, index) => {
         let productHtml = `
@@ -62,6 +75,13 @@ function loadProducts() {
         input.addEventListener('input', handleInputChange);
     });
     computeAndShowPercent();
+
+}
+
+function resetProducts() {
+    products = products_o;
+    saveProductsToCookies();
+    loadProducts(products);
 }
 
 function handleInputChange(event) {
@@ -95,4 +115,5 @@ function computeAndShowPercent() {
     document.getElementById('price-per-kg').textContent = "Pret: " + pricePerKg + " ron/kg";
 }
 
-loadProducts();
+
+loadProducts(products);
