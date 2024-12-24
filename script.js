@@ -49,10 +49,6 @@ function loadProductsFromCookies() {
 
 function loadProducts() {
     loadProductsFromCookies();
-    if (products.length === 0) {
-        products = JSON.parse(JSON.stringify(products_o));
-        saveProductsToCookies();
-    }
     let productsContainerHtml = [];
     products.forEach((product, index) => {
         let productHtml = `
