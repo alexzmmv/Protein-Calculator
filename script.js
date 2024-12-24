@@ -10,13 +10,6 @@ let products_o = [
 
 
 let products = [
-    { name: 'Porumb', quantity: 0, protein: 10, price: 1 },
-    { name: 'Grau', quantity: 0, protein: 10, price: 1 },
-    { name: 'Orz', quantity: 0, protein: 11, price: 1 },
-    { name: 'Tarate', quantity: 0, protein: 11, price: 1.2 },
-    { name: 'Floare', quantity: 0, protein: 28, price: 2 },
-    { name: 'Soia', quantity: 0, protein: 46, price: 4 },
-    { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
 ];
 
 
@@ -54,9 +47,12 @@ function loadProductsFromCookies() {
     }
 }
 
-function loadProducts(Products_i) {
+function loadProducts(Products_i, reset = false) {
     loadProductsFromCookies();
-    products=Products_i;
+    if (products.length === 0 || reset) {
+        products = Products_i;
+        saveProductsToCookies();
+    }
     let productsContainerHtml = [];
     products.forEach((product, index) => {
         let productHtml = `
@@ -79,7 +75,7 @@ function loadProducts(Products_i) {
 }
 
 function resetProducts() {
-    loadProducts(products_o);
+    loadProducts(products_o, true);
     saveProductsToCookies();
     window.scrollTo(0, 0);
 }
@@ -116,4 +112,4 @@ function computeAndShowPercent() {
 }
 
 
-loadProducts(products);
+loadProducts(products_o);
