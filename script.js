@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     };
 
+
     const handleMinusButtonClick = (event) => {
         const index = event.target.dataset.index;
         products[index].protein = Math.max(0, products[index].protein - 1);
