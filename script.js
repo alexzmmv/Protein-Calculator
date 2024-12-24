@@ -16,6 +16,7 @@ function setCookie(name, value, days) {
         expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    console.log(`Cookie set: ${name}=${value}`);
 }
 
 function getCookie(name) {
@@ -37,6 +38,7 @@ function loadProductsFromCookies() {
     let cookieData = getCookie('products');
     if (cookieData) {
         products = JSON.parse(cookieData);
+        console.log('Products loaded from cookies:', products);
     }
 }
 
