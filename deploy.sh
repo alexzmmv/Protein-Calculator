@@ -6,6 +6,6 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-sudo git add .
-sudo git commit -m "$1"
-sudo git push --force
+git add .
+git commit -m "$1"
+git push --force

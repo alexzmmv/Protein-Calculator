@@ -71,6 +71,9 @@ function loadProducts() {
 }
 
 function resetProducts() {
+    products = JSON.parse(JSON.stringify(products_o));
+    saveProductsToCookies();
+    loadProducts();
 }
 
 function handleInputChange(event) {
