@@ -8,7 +8,40 @@ let products = [
     { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
 ];
 
-function loadProducts(){
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function saveProductsToCookies() {
+    setCookie('products', JSON.stringify(products), 7);
+}
+
+function loadProductsFromCookies() {
+    let cookieData = getCookie('products');
+    if (cookieData) {
+        products = JSON.parse(cookieData);
+    }
+}
+
+function loadProducts() {
+    loadProductsFromCookies();
     let productsContainerHtml = [];
     products.forEach((product, index) => {
         let productHtml = `
@@ -41,22 +74,22 @@ function handleInputChange(event) {
             products[index].price = value;
             break;
         default:
-
     }
+    saveProductsToCookies();
     computeAndShowPercent();
 }
 
-function computeAndShowPercent(){
+function computeAndShowPercent() {
     let totalProtein = products.reduce((sum, product) => sum + (product.quantity * product.protein / 100), 0);
     let totalPrice = products.reduce((sum, product) => sum + (product.quantity * product.price), 0);
     let totalQuantity = products.reduce((sum, product) => sum + product.quantity, 0);
-    
-    let proteinPercent = (totalProtein / totalQuantity * 100).toFixed(2) || 0;
-    let pricePerKg = (totalPrice / totalQuantity).toFixed(2) || 0;
 
-    console.log(proteinPercent, pricePerKg);    
-    document.getElementById('protein-percent').textContent="Proteina: "+ proteinPercent+"%";
-    document.getElementById('price-per-kg').textContent="Pret: "+pricePerKg+" ron/kg";
+    let proteinPercent = totalQuantity ? (totalProtein / totalQuantity * 100).toFixed(2) : 0;
+    let pricePerKg = totalQuantity ? (totalPrice / totalQuantity).toFixed(2) : 0;
+
+    console.log(proteinPercent, pricePerKg);
+    document.getElementById('protein-percent').textContent = "Proteina: " + proteinPercent + "%";
+    document.getElementById('price-per-kg').textContent = "Pret: " + pricePerKg + " ron/kg";
 }
 
 loadProducts();
