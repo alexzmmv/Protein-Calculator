@@ -92,7 +92,22 @@ input[type="number"], input[type="text"] {
     background-color: #c82333;
 }
 
+#add-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 @media (max-width: 600px) {
+    #add-button {
+        width: 100%;
+        transform: translateX(-50%);
+    }
     .minus-button, .plus-button {
         min-width: 44px; /* Ensures buttons are large enough for touch */
         min-height: 44px; /* Ensures buttons are large enough for touch */

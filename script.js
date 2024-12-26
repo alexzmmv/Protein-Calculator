@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveProductsToCookies = () => {
         setCookie('products', JSON.stringify(products), 7);
     };
-
     const loadProductsFromCookies = () => {
         const cookieData = getCookie('products');
         if (cookieData) products = JSON.parse(cookieData);
@@ -109,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
 
+
     // Logic: Compute percentages and update UI
     const computeAndShowPercent = () => {
         const totalProtein = products.reduce((sum, product) => sum + (product.quantity * product.protein / 100), 0);
@@ -127,12 +127,50 @@ document.addEventListener('DOMContentLoaded', () => {
         products = JSON.parse(JSON.stringify(products_o));
         updateProducts();
     };
+    // Add product event listener
+    /*
+    <div class="row" id="add-form-container">
+            <div class="cell">
+                <input type="text" id="product-name" placeholder="Nume">
+            </div>
+            <div class="cell">
+                <input type="number" id="product-quantity" placeholder="Cantitate">
+            </div>
+            <div class="cell">
+                <input type="number" id="product-protein" placeholder="Protein">
+            </div>
+            <div class="cell">
+                <input type="number" id="product-price" placeholder="Pret">
+            </div>
+            <div class="cell">
+                <button id="add-button">Adauga</button>
+            </div>
+    */
+    // Attach add button event
+    document.getElementById('add-button').addEventListener('click', () => {
+        const name = document.getElementById('product-name').value;
+        const quantity = parseFloat(document.getElementById('product-quantity').value) || 0;
+        const protein = parseFloat(document.getElementById('product-protein').value) || 0;
+        const price = parseFloat(document.getElementById('product-price').value) || 0;
 
+        if (name && quantity && protein && price) {
+            products.push({ name, quantity, protein, price });
+            updateProducts();
+        }
+        document.getElementById('product-name').value = '';
+        document.getElementById('product-quantity').value = '';
+        document.getElementById('product-protein').value = '';
+        document.getElementById('product-price').value = '';
+    });
+
+    // Update products and re-render
     const updateProducts = () => {
         saveProductsToCookies();
         renderProducts();
         computeAndShowPercent();
     };
+
+
 
     // Initialize
     loadProductsFromCookies();
@@ -141,4 +179,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Attach reset button event
     document.getElementById('reset-button').addEventListener('click', resetProducts);
+    
 });
