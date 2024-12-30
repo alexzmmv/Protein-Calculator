@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Orz', quantity: 0, protein: 11, price: 1 },
         { name: 'Tarate', quantity: 0, protein: 11, price: 1.2 },
         { name: 'Floare', quantity: 0, protein: 28, price: 2 },
-        { name: 'Soia', quantity: 0, protein: 46, price: 4 },
-        { name: 'Amino/altele', quantity: 0, protein: 0, price: 0 },
+        { name: 'Soia', quantity: 0, protein: 36, price: 4 },
+        { name: 'Fara proteina', quantity: 0, protein: 0, price: 0 },
     ];
 
     let products = JSON.parse(JSON.stringify(products_o));

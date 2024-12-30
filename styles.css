@@ -103,7 +103,7 @@ input[type="number"], input[type="text"] {
     transition: background-color 0.3s ease;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 625px) {
     #add-button {
         width: 100%;
         transform: translateX(-50%);
