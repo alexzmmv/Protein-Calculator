@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="number" 
                            name="quantity" 
                            placeholder="${product.quantity}" 
-                           min="0" 
+                           min="0"
                            class="quantity-input" 
                            data-index="${index}">
                 </div>
@@ -127,26 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         products = JSON.parse(JSON.stringify(products_o));
         updateProducts();
     };
-    // Add product event listener
-    /*
-    <div class="row" id="add-form-container">
-            <div class="cell">
-                <input type="text" id="product-name" placeholder="Nume">
-            </div>
-            <div class="cell">
-                <input type="number" id="product-quantity" placeholder="Cantitate">
-            </div>
-            <div class="cell">
-                <input type="number" id="product-protein" placeholder="Protein">
-            </div>
-            <div class="cell">
-                <input type="number" id="product-price" placeholder="Pret">
-            </div>
-            <div class="cell">
-                <button id="add-button">Adauga</button>
-            </div>
-    */
-    // Attach add button event
+    //Attach add button event
     document.getElementById('add-button').addEventListener('click', () => {
         const name = document.getElementById('product-name').value;
         const quantity = parseFloat(document.getElementById('product-quantity').value) || 0;
