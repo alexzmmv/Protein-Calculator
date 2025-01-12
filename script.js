@@ -122,11 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
         pricePerKgElem.textContent = `Pret: ${pricePerKg} ron/kg`;
     };
 
+
+    const resetQuantities = () => {
+        products.forEach(product => product.quantity = 0);
+        updateProducts();
+    };
     // Reset products to initial state
     const resetProducts = () => {
         products = JSON.parse(JSON.stringify(products_o));
-        updateProducts();
+        resetQuantities();
     };
+
+    
     //Attach add button event
     document.getElementById('add-button').addEventListener('click', () => {
         const name = document.getElementById('product-name').value;
@@ -134,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const protein = parseFloat(document.getElementById('product-protein').value) || 0;
         const price = parseFloat(document.getElementById('product-price').value) || 0;
 
-        if (name && quantity && protein && price) {
+        if (name && quantity && protein && price && protein >= 0 && protein <= 99 && price >= 0 && quantity >= 0) {
             products.push({ name, quantity, protein, price });
             updateProducts();
         }
@@ -143,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('product-protein').value = '';
         document.getElementById('product-price').value = '';
     });
+    // Attach reset button event
+    document.getElementById('reset-quantities-button').addEventListener('click', resetQuantities);
+    // Attach reset quantities button event
+    document.getElementById('reset-button').addEventListener('click', resetProducts );
+    
 
     // Update products and re-render
     const updateProducts = () => {
@@ -158,7 +170,4 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     computeAndShowPercent();
 
-    // Attach reset button event
-    document.getElementById('reset-button').addEventListener('click', resetProducts);
-    
 });

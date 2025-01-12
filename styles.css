@@ -50,24 +50,41 @@ input[type="number"], input[type="text"] {
     padding: 8px;
 }
 
-.button-container {
-    padding: 20px;
-}
 
 #reset-button {
-    background-color: #007bff;
+    background-color: #ff0000;
+    color: #fff;
+}
+#reset-quantities-button {
+    background-color: #008000;
+    color: #fff;
+}
+.bottom-buttons-container {
+    /* Ensures buttons are centered and one above the other*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+#reset-button,
+#reset-quantities-button {
+    flex: 1;
+    width: 100%;
     color: #fff;
     border: none;
     border-radius: 4px;
-    padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 1.2em;
 }
 
 #reset-button:hover {
-    background-color: #0056b3;
+    background-color: #cc0000;
 }
+
 .minus-button, .plus-button {
     background-color: #28a745;
     color: #fff;
@@ -92,15 +109,18 @@ input[type="number"], input[type="text"] {
     background-color: #c82333;
 }
 
-#add-button {
-    background-color: #007bff;
-    color: #fff;
+.myButton {
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+#add-button {
+    background-color: #007bff;
+    color: #fff;
 }
 
 @media (max-width: 650px) {
