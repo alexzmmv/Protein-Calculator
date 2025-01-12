@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handlePlusButtonClick = (event) => {
         const index = event.target.dataset.index;
-        products[index].protein = Math.min(100, products[index].protein + 1);
+        products[index].protein = Math.min(99, products[index].protein + 1);
         updateProducts();
     };
 
