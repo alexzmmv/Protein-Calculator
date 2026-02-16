@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="date-calculator.js" defer></script>
+    <title>Calculator Data Fătare</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link">Calculator Proteine</a></li>
+            <li class="nav-item"><a href="calculator-data.html" class="nav-link active">Calculator Fătare</a></li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+    
+    <div class="date-calculator-container">
+        <h1>Calculator Data Fătare</h1>
+        <p class="description">Calculați data fătării pentru o scroafă însămânțată</p>
+        
+        <div class="calculator-card">
+            <div class="input-group">
+                <label for="insemination-date">Data Însămânțării:</label>
+                <input type="date" id="insemination-date" class="date-input">
+            </div>
+            
+            <button id="calculate-button" class="myButton calculate-btn">Calculează</button>
+            
+            <div id="result-container" class="result-container hidden">
+                <h2>Rezultat:</h2>
+                <div class="result-box">
+                    <p class="result-label">Data Fătării Estimate:</p>
+                    <p id="farrowing-date" class="result-date"></p>
+                </div>
+                <p class="info-text">
+                    <strong>Notă:</strong> Perioada de gestație pentru o scroafă este de aproximativ 114 zile (3 luni, 3 săptămâni și 3 zile).
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
